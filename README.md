@@ -1,15 +1,11 @@
-# Dropdown Menu with Image Carousel
+# Browser Form with Validation
 
-A dropdown menu component with an integrated image carousel feature.
-
-## Description
-
-This project implements a customizable dropdown menu component with an image carousel functionality. It provides a user-friendly interface for displaying dropdown content along with carousel images.
+This project is a simple browser form with validation checks for each input field. It guides the user by showing error messages while typing or submitting the form. The form includes fields for email address, country, ZIP code, password, and confirm password.
 
 ## Features
 
-- Dropdown menu with customizable content
-- Integrated image carousel feature
-- Supports navigation through dots
-- Auto-advance functionality for carousel slides
-- Easy to integrate and customize
+- **Email Address**: Validates email format and minimum length.
+- **Country**: Select a country from a dropdown menu.
+- **ZIP Code**: Validates ZIP code format, especially for Russian ZIP codes.
+- **Password**: Ensures minimum length and allows toggling password visibility.
+- **Confirm Password**: Validates that it matches the password field.

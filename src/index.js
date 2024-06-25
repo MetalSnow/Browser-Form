@@ -1,50 +1,49 @@
 import './style.css';
-import Icon from './icons/drop-down-icon.png';
-import { dropdownToggle } from './modules/dropdown.js';
 import {
-  next,
-  previous,
-  swipeImage,
-  dotsColorController,
-} from './modules/imageCarousel.js';
+  email,
+  country,
+  ZIPField,
+  password,
+  confirmPassword,
+  showPasswordBtn,
+  showConfirmedPasswordBtn,
+  form,
+  inputs,
+  highFiveMessage,
+} from './modules/DOM';
+import checkEmail from './modules/checkEmail';
+import checkZIP from './modules/checkZipCode';
+import checkPassword from './modules/checkPassword';
+import confirmPwd from './modules/confirmPassword';
+import showPassword from './modules/showPassword';
 
-const dropdownBtn = document.querySelector('#drop-down-btn');
-const dropdownDiv = document.querySelector('.drop-down-content');
-const imgs = document.querySelectorAll('img:not(.dropdown-icon)');
-const navigationDots = document.querySelectorAll('.dot');
-
-const nextBtn = document.querySelector('#next');
-const previousBtn = document.querySelector('#previous');
-
-// Add the image to our existing div.
-const myIcon = new Image();
-myIcon.src = Icon;
-myIcon.classList.add('dropdown-icon');
-
-dropdownBtn.appendChild(myIcon);
-
-dropdownBtn.addEventListener('click', () => {
-  dropdownToggle(dropdownDiv);
+email.addEventListener('input', checkEmail);
+country.addEventListener('change', checkZIP);
+ZIPField.addEventListener('input', checkZIP);
+password.addEventListener('input', checkPassword);
+confirmPassword.addEventListener('input', confirmPwd);
+showPasswordBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+  showPassword(password);
+});
+showConfirmedPasswordBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+  showPassword(confirmPassword);
 });
 
-nextBtn.addEventListener('click', () => {
-  next();
-  dotsColorController(navigationDots, imgs);
-});
-previousBtn.addEventListener('click', () => {
-  previous();
-  dotsColorController(navigationDots, imgs);
-});
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  inputs.forEach((input) => {
+    if (!input.checkValidity() || !confirmPwd()) {
+      checkEmail();
+      checkZIP();
+      checkPassword();
+    } else {
+      highFiveMessage.style.display = 'block';
 
-navigationDots.forEach((dot) => {
-  dot.addEventListener('click', () => {
-    swipeImage(dot, imgs);
-    dotsColorController(navigationDots, imgs);
+      setTimeout(() => {
+        highFiveMessage.style.display = 'none';
+      }, 1000);
+    }
   });
 });
-
-// timeOut which advances the slides every 5 seconds
-setInterval(() => {
-  next();
-  dotsColorController(navigationDots, imgs);
-}, 5000);
